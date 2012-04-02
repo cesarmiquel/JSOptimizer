@@ -15,6 +15,7 @@ ProblemInstance interface which has three methods:
 To use the optimization class do:
 
 
+```javascript
     // params for optimizer.
     var params = {
         maxE: -1000000,
@@ -45,4 +46,4 @@ To use the optimization class do:
         }
     };
     doLoop();
-
+```
