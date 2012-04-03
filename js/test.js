@@ -10,12 +10,12 @@ $(function() {
       minE: 1000000, 
       initialThreshold: 1,
       scaleIterationFactor: 0.9,
-      maxThresholdIter: 2000, 
+      maxThresholdIter: 4000, 
       maxIter: 2000000,
       debug: true
   };
 
-  var p = new CircleProblem(50);
+  var p = new CircleProblem(60);
 
   var optimizer = new TAOptimizer(p, params);
 
@@ -31,6 +31,7 @@ $(function() {
       pathString += 'L' + Math.round(i * dx) + ',' + Math.round(o.solution[i] * scale);
     }
     o.paper.clear()
+    o.paper.circle(150,0,150).attr({stroke: '#cc3', 'stroke-width': 4, 'stroke-linejoin': 'round'});
     var path = o.paper.path(pathString).attr({stroke: '#393', "stroke-width": 4, "stroke-linejoin": "round"});
   }
 
@@ -40,8 +41,11 @@ $(function() {
   window.optimizer = optimizer;
 
   // loop and see how it changes
-  var doLoop = function() { r = optimizer.step(2000); if (r) { window.setTimeout(doLoop, 1) } };
-  doLoop();
+  var doLoop = function() { r = optimizer.step(2000); if (r) { $('#energy').html('<p>Current energy: ' + optimizer.instance.energy() + '</p>'); window.setTimeout(doLoop, 1) } };
+
+  $('#start-button').click(function() {
+    doLoop();
+  });
 
 });
 
